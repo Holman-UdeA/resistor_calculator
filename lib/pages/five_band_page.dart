@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
-class FourBandPage extends StatefulWidget {
-  const FourBandPage({super.key});
+class FiveBandPage extends StatefulWidget {
+  const FiveBandPage({super.key});
+
   @override
-  State<FourBandPage> createState() => _FourBandPageState();
+  State<FiveBandPage> createState() => _FiveBandPageState();
 }
 
-class _FourBandPageState extends State<FourBandPage> {
+class _FiveBandPageState extends State<FiveBandPage> {
   int valueBand1 = 0;
   int valueBand2 = 0;
+  int valueBand3 = 0;
   double valueMultiplier = 1.0;
   String valueTolerance = "±1%";
   String result = "";
 
   //Funcion para calcular el valor de la resistencia
   String calculateResistance() {
-    double value = ((valueBand1 * 10) + valueBand2) * valueMultiplier;
+    double value =
+        (((valueBand1 * 100) + (valueBand2 * 10)) + valueBand3) *
+        valueMultiplier;
     String suffix = "Ω";
 
     //Se simplifa el resultado usando notacion cientifica
@@ -33,11 +37,11 @@ class _FourBandPageState extends State<FourBandPage> {
     if (value == value.toInt()) {
       return "${value.toInt()} $suffix $valueTolerance"; // Sin decimales
     } else {
-      return "${value.toStringAsPrecision(2)} $suffix $valueTolerance";
+      return "${value.toStringAsPrecision(3)} $suffix $valueTolerance";
     }
   }
 
-  //Funcion usada para cambiar el color del underliner
+  //Funciones usada para cambiar el color del underliner e icono
   Color getColorFromValue(int value) {
     switch (value) {
       case 0:
@@ -124,10 +128,10 @@ class _FourBandPageState extends State<FourBandPage> {
                 children: [
                   const Image(
                     image: AssetImage("assets/images/resistor_page.png"),
-                    width: 200,
-                    height: 150,
+                    width: 190,
+                    height: 140,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   //Banda 1
                   Align(
                     alignment: Alignment.centerLeft,
@@ -216,6 +220,7 @@ class _FourBandPageState extends State<FourBandPage> {
                       });
                     },
                     isExpanded: true,
+                    iconSize: 30,
                     icon: Icon(
                       Icons.arrow_drop_down,
                       color: getColorFromValue(valueBand1),
@@ -225,11 +230,6 @@ class _FourBandPageState extends State<FourBandPage> {
                       color: getColorFromValue(
                         valueBand1,
                       ), // Línea inferior de color
-                    ),
-                    style: const TextStyle( //Borrar?
-                      color: Colors.black87,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -321,6 +321,7 @@ class _FourBandPageState extends State<FourBandPage> {
                       });
                     },
                     isExpanded: true,
+                    iconSize: 30,
                     icon: Icon(
                       Icons.arrow_drop_down,
                       color: getColorFromValue(valueBand2),
@@ -328,6 +329,105 @@ class _FourBandPageState extends State<FourBandPage> {
                     underline: Container(
                       height: 2,
                       color: getColorFromValue(valueBand2),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  //Banda 3
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Color de banda 3:",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  DropdownButton(
+                    value: valueBand3,
+                    items: const [
+                      DropdownMenuItem(
+                        value: 0,
+                        child: Text(
+                          "Negro",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 1,
+                        child: Text(
+                          "Marron",
+                          style: TextStyle(color: Color(0xFF8B4513)),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 2,
+                        child: Text(
+                          "Rojo",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 3,
+                        child: Text(
+                          "Naranja",
+                          style: TextStyle(color: Colors.orange),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 4,
+                        child: Text(
+                          "Amarillo",
+                          style: TextStyle(color: Colors.yellow),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 5,
+                        child: Text(
+                          "Verde",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 6,
+                        child: Text(
+                          "Azul",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 7,
+                        child: Text(
+                          "Violeta",
+                          style: TextStyle(color: Colors.purple),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 8,
+                        child: Text(
+                          "Gris",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 9,
+                        child: Text(
+                          "Blanco",
+                          style: TextStyle(color: Color(0xFFB0B0B0)),
+                        ),
+                      ),
+                    ],
+                    onChanged: (newValue) {
+                      setState(() {
+                        valueBand3 = newValue!;
+                      });
+                    },
+                    isExpanded: true,
+                    iconSize: 30,
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: getColorFromValue(valueBand3),
+                    ),
+                    underline: Container(
+                      height: 2,
+                      color: getColorFromValue(valueBand3),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -434,6 +534,7 @@ class _FourBandPageState extends State<FourBandPage> {
                       });
                     },
                     isExpanded: true,
+                    iconSize: 30,
                     icon: Icon(
                       Icons.arrow_drop_down,
                       color: getMultiplierColor(valueMultiplier),
@@ -490,6 +591,7 @@ class _FourBandPageState extends State<FourBandPage> {
                       });
                     },
                     isExpanded: true,
+                    iconSize: 30,
                     icon: Icon(
                       Icons.arrow_drop_down,
                       color: getToleranceColor(valueTolerance),

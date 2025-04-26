@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resistor_calculator/pages/four_band_page.dart';
+import 'package:resistor_calculator/pages/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 2), () async{
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => FourBandPage())
+          MaterialPageRoute(builder: (context) => HomePage())
       );
     });
   }
